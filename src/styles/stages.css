@@ -1,0 +1,711 @@
+/* ============================================================
+   Lock gate — shown before anything else
+   ============================================================ */
+
+.lock-stage {
+  position: relative;
+}
+
+.lock-card {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface-paper);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--surface-shadow);
+  border: 1px solid rgba(217, 143, 164, 0.25);
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .lock-card {
+    padding: var(--space-5) var(--space-3);
+    border-radius: var(--radius-md);
+  }
+}
+
+.lock-box {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pale-rose), var(--blush-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  box-shadow: var(--surface-shadow-soft);
+}
+
+.lock-outside-label {
+  font-family: var(--font-display-alt);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--deep-rose);
+  line-height: 1.7;
+  max-width: 30ch;
+  margin-bottom: var(--space-5);
+}
+
+.lock-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+.lock-form--shake {
+  animation: lockShake 420ms var(--ease-soft);
+}
+
+@keyframes lockShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-form--shake {
+    animation: none;
+  }
+}
+
+.lock-input {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--pale-rose);
+  background: var(--warm-ivory);
+  font-family: var(--font-arabic);
+  font-size: 1rem;
+  color: var(--soft-charcoal);
+  text-align: center;
+  transition: border-color var(--dur-fast) ease;
+}
+
+.lock-input:focus {
+  border-color: var(--dusty-rose);
+  outline: none;
+}
+
+.lock-input::placeholder {
+  color: #b79aa3;
+}
+
+.lock-btn {
+  align-self: center;
+  min-width: 180px;
+}
+
+.lock-wrong-message {
+  min-height: 1.4em;
+  margin-top: var(--space-3);
+  font-size: 0.9rem;
+  color: var(--deep-rose);
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease;
+}
+
+.lock-wrong-message--visible {
+  opacity: 1;
+}
+
+/* ============================================================
+   Shared bits
+   ============================================================ */
+
+.eyebrow {
+  font-family: var(--font-arabic);
+  letter-spacing: 0.22em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--dusty-rose);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+/* ============================================================
+   Stage 1 — Welcome
+   ============================================================ */
+
+.welcome-stage {
+  position: relative;
+}
+
+.welcome-card {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-bouquet-wrap {
+  position: relative;
+  width: min(78vw, 300px);
+  aspect-ratio: 1 / 1;
+  margin-bottom: var(--space-4);
+}
+
+.welcome-bouquet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: var(--surface-shadow);
+  border: 6px solid var(--surface-paper);
+}
+
+.welcome-bouquet-glow {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(217, 143, 164, 0.28) 0%,
+    rgba(217, 143, 164, 0) 70%
+  );
+  z-index: -1;
+}
+
+.welcome-title {
+  font-size: clamp(2.6rem, 9vw, 3.6rem);
+  color: var(--deep-rose);
+  letter-spacing: 0.01em;
+  margin-bottom: var(--space-3);
+}
+
+.welcome-arabic {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--soft-charcoal);
+  line-height: 1.7;
+  margin-bottom: var(--space-2);
+  max-width: 34ch;
+}
+
+.welcome-support {
+  font-size: 0.98rem;
+  color: #6b5b60;
+  margin-bottom: var(--space-5);
+}
+
+.welcome-btn {
+  min-width: 220px;
+}
+
+/* ============================================================
+   Envelope transition overlay
+   ============================================================ */
+
+.envelope-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--warm-ivory);
+}
+
+.envelope-box {
+  position: relative;
+  width: 200px;
+  height: 130px;
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-paper);
+  border: 1.5px solid var(--pale-rose);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--surface-shadow-soft);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: linear-gradient(160deg, var(--pale-rose), var(--dusty-rose));
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 3;
+}
+
+.envelope-letter-peek {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 6%);
+  width: 130px;
+  height: 90px;
+  background: var(--surface-paper);
+  border: 1px solid var(--pale-rose);
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14px;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* ============================================================
+   Stage 2 — Apology Letter
+   ============================================================ */
+
+.letter-stage {
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    var(--pale-rose) 0%,
+    rgba(249, 220, 229, 0) 55%
+  );
+}
+
+.letter-card {
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  background: var(--surface-paper);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--surface-shadow);
+  padding: var(--space-6) var(--space-5);
+  border: 1px solid rgba(217, 143, 164, 0.25);
+}
+
+@media (max-width: 640px) {
+  .letter-card {
+    padding: var(--space-5) var(--space-3);
+    border-radius: var(--radius-md);
+  }
+}
+
+.letter-card__corner {
+  position: absolute;
+  opacity: 0.55;
+}
+.letter-card__corner--tl {
+  top: -18px;
+  right: -14px;
+}
+.letter-card__corner--br {
+  bottom: -18px;
+  left: -14px;
+}
+
+@media (max-width: 480px) {
+  .letter-card__corner {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.letter-heading {
+  font-family: var(--font-display-alt);
+  font-style: italic;
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  color: var(--deep-rose);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.letter-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.letter-paragraph {
+  font-size: 1.08rem;
+  line-height: 2;
+  color: var(--soft-charcoal);
+}
+
+.letter-signature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  margin-bottom: var(--space-5);
+  padding-inline-end: var(--space-2);
+}
+
+.letter-signature > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-display-alt);
+  font-style: italic;
+  color: var(--deep-rose);
+  line-height: 1.4;
+}
+
+.letter-signature__line {
+  font-size: 1rem;
+}
+.letter-signature__name {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.letter-btn {
+  display: flex;
+  margin-inline: auto;
+}
+
+/* ============================================================
+   Stage 3 — Photo + Voice
+   ============================================================ */
+
+.photovoice-stage {
+  background: radial-gradient(
+    110% 90% at 50% 100%,
+    var(--blush-pink) 0%,
+    rgba(252, 231, 239, 0) 60%
+  );
+}
+
+.photovoice-card {
+  max-width: 980px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+@media (min-width: 860px) {
+  .photovoice-card {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+.photovoice-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.photo-frame {
+  position: relative;
+  padding: var(--space-2);
+  background: var(--surface-paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--surface-shadow);
+  border: 1px solid rgba(217, 143, 164, 0.2);
+  max-width: 340px;
+  width: 100%;
+}
+
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 1.5px solid var(--pale-rose);
+  border-radius: calc(var(--radius-md) + 6px);
+  z-index: -1;
+}
+
+.photo-frame__img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: calc(var(--radius-md) - 6px);
+  background: var(--cream);
+}
+
+.photo-caption {
+  margin-top: var(--space-3);
+  font-size: 1.02rem;
+  color: var(--deep-rose);
+  font-weight: 500;
+  text-align: center;
+}
+
+.photovoice-audio-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  width: 100%;
+}
+
+@media (min-width: 860px) {
+  .photovoice-audio-col {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.audio-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.audio-heading h2 {
+  font-size: clamp(1.3rem, 4.4vw, 1.6rem);
+  color: var(--deep-rose);
+}
+
+.audio-subtitle {
+  color: #6b5b60;
+  font-size: 0.98rem;
+  margin-bottom: var(--space-4);
+}
+
+.photovoice-btn {
+  margin-top: var(--space-5);
+}
+
+/* ---- audio player ---- */
+.audio-player {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface-paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--surface-shadow-soft);
+  border: 1px solid rgba(217, 143, 164, 0.22);
+  padding: var(--space-3) var(--space-4);
+}
+
+.audio-player__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.audio-player__play-btn {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--dusty-rose), var(--deep-rose));
+  color: var(--warm-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--surface-shadow-soft);
+  transition: transform var(--dur-fast) var(--ease-soft), filter var(--dur-fast) ease;
+}
+.audio-player__play-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  filter: brightness(1.04);
+}
+.audio-player__play-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.audio-player__play-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.audio-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .audio-spinner {
+    animation: none;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.audio-player__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.audio-player__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.audio-player__label {
+  font-size: 0.92rem;
+  color: var(--soft-charcoal);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.audio-player__progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.audio-player__progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to left,
+    var(--dusty-rose) var(--progress, 0%),
+    var(--pale-rose) var(--progress, 0%)
+  );
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.audio-player__progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--deep-rose);
+  border: 2px solid var(--surface-paper);
+  box-shadow: 0 1px 4px rgba(169, 79, 104, 0.4);
+  cursor: pointer;
+}
+
+.audio-player__progress::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--deep-rose);
+  border: 2px solid var(--surface-paper);
+  cursor: pointer;
+}
+
+.audio-player__progress:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.audio-player__time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #8a7a7f;
+  direction: ltr;
+}
+
+/* ============================================================
+   Stage 4 — Final Bouquet
+   ============================================================ */
+
+.final-stage {
+  position: relative;
+}
+
+.final-card {
+  position: relative;
+  z-index: 1;
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-bouquet-wrap {
+  width: min(82vw, 340px);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--surface-shadow);
+  border: 6px solid var(--surface-paper);
+}
+
+.final-bouquet-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.final-heading {
+  font-size: clamp(1.7rem, 6vw, 2.2rem);
+  color: var(--deep-rose);
+  margin-bottom: var(--space-4);
+}
+
+.final-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.final-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--soft-charcoal);
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+.final-signature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display-alt);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--deep-rose);
+  margin-bottom: var(--space-1);
+}
+
+.final-note {
+  font-size: 0.85rem;
+  color: #9a898e;
+  margin-bottom: var(--space-5);
+}
+
+.final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}

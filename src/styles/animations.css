@@ -1,0 +1,176 @@
+/* ---------- entrance animations ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-8%) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  92% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(112vh) translateX(var(--drift, 24px)) rotate(200deg);
+    opacity: 0;
+  }
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes softSway {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+@keyframes envelopeFlapOpen {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-178deg);
+  }
+}
+
+@keyframes letterRise {
+  0% {
+    transform: translateY(6%) scale(0.94);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-38%) scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--dur-med) var(--ease-soft) both;
+}
+
+.fade-in {
+  animation: fadeIn var(--dur-med) var(--ease-soft) both;
+}
+
+.delay-1 {
+  animation-delay: 90ms;
+}
+.delay-2 {
+  animation-delay: 180ms;
+}
+.delay-3 {
+  animation-delay: 270ms;
+}
+.delay-4 {
+  animation-delay: 360ms;
+}
+.delay-5 {
+  animation-delay: 450ms;
+}
+
+.floating-petal {
+  position: absolute;
+  top: -6%;
+  will-change: transform, opacity;
+  animation: floatPetal linear infinite;
+  pointer-events: none;
+}
+
+.gentle-pulse {
+  animation: gentlePulse 3.6s ease-in-out infinite;
+}
+
+.soft-sway {
+  animation: softSway 6s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+/* ---------- stage transition wrapper ---------- */
+.stage-transition-enter {
+  opacity: 0;
+  transform: translateY(14px) scale(0.99);
+}
+
+.stage-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity var(--dur-slow) var(--ease-soft),
+    transform var(--dur-slow) var(--ease-soft);
+}
+
+.stage-transition-exit {
+  opacity: 1;
+}
+
+.stage-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.99);
+  transition: opacity var(--dur-med) var(--ease-soft),
+    transform var(--dur-med) var(--ease-soft);
+}
+
+/* ---------- envelope ---------- */
+.envelope-scene {
+  perspective: 1400px;
+}
+
+.envelope-flap {
+  transform-style: preserve-3d;
+  transform-origin: top center;
+}
+
+.envelope-flap.is-opening {
+  animation: envelopeFlapOpen 900ms var(--ease-soft) forwards;
+}
+
+.envelope-letter-peek.is-rising {
+  animation: letterRise 900ms 200ms var(--ease-soft) forwards;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .floating-petal {
+    display: none;
+  }
+}

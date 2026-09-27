@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap");
+
+:root {
+  /* ---- palette ---- */
+  --blush-pink: #fce7ef;
+  --pale-rose: #f9dce5;
+  --dusty-rose: #d98fa4;
+  --deep-rose: #a94f68;
+  --warm-ivory: #fff9f4;
+  --cream: #f8f0e8;
+  --muted-sage: #a6b49a;
+  --soft-charcoal: #45383c;
+
+  /* ---- gradients / surfaces ---- */
+  --surface-paper: #fffdfb;
+  --surface-shadow: 0 20px 60px -25px rgba(169, 79, 104, 0.35);
+  --surface-shadow-soft: 0 10px 30px -15px rgba(169, 79, 104, 0.25);
+
+  /* ---- type ---- */
+  --font-arabic: "Tajawal", "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", serif;
+  --font-display-alt: "Cormorant Garamond", "Playfair Display", serif;
+
+  /* ---- spacing scale ---- */
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.2rem;
+  --space-4: 1.8rem;
+  --space-5: 2.6rem;
+  --space-6: 3.6rem;
+  --space-7: 5rem;
+
+  /* ---- radii ---- */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* ---- motion ---- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 220ms;
+  --dur-med: 480ms;
+  --dur-slow: 900ms;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--warm-ivory);
+  color: var(--soft-charcoal);
+  font-family: var(--font-arabic);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---- focus states (accessible) ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--deep-rose);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- RTL / Arabic block ---- */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+/* ---- primary button ---- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: center;
+  padding: 0.95rem 2.1rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--dusty-rose), var(--deep-rose));
+  color: var(--warm-ivory);
+  font-family: var(--font-arabic);
+  font-size: 1.02rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--surface-shadow-soft);
+  transition: transform var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur-fast) var(--ease-soft), filter var(--dur-fast) ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--surface-shadow);
+  filter: brightness(1.03);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 6px 16px -8px rgba(169, 79, 104, 0.4);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: center;
+  padding: 0.85rem 1.8rem;
+  border: 1.5px solid var(--dusty-rose);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--deep-rose);
+  font-family: var(--font-arabic);
+  font-size: 0.98rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-soft),
+    background var(--dur-fast) var(--ease-soft);
+}
+
+.btn-secondary:hover {
+  background: var(--pale-rose);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- app shell ---- */
+.app-shell {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: radial-gradient(
+      120% 90% at 50% -10%,
+      var(--blush-pink) 0%,
+      rgba(252, 231, 239, 0) 60%
+    ),
+    var(--warm-ivory);
+}
+
+.stage-container {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .stage-container {
+    padding: var(--space-5) var(--space-3);
+  }
+}
